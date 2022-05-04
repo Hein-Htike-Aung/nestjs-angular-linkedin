@@ -1,14 +1,15 @@
 ### create feed post
 POST http://localhost:3000/api/feed
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJmaXJzdE5hbWUiOiJKb2huIiwibGFzdE5hbWUiOiJEb2UiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIn0sImlhdCI6MTY1MTY3NDk3MiwiZXhwIjoxNjUxNjc4NTcyfQ._0TJHz1X-cwOuJFVJnoWQPBIUxOz49kE-kClpY1bcgI
 
 {
-    "body": "first body"
+    "body": "Sixth body"
 }
 
 
-### get all posts
-GET http://localhost:3000/api/feed
+### get all selected post
+GET http://localhost:3000/api/feed?take=2&skip=0
 
 
 ### update feed post

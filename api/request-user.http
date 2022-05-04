@@ -1,0 +1,21 @@
+### Register User
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJmaXJzdE5hbWUiOiJKb2huIiwibGFzdE5hbWUiOiJEb2UiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIn0sImlhdCI6MTY1MTY3NDU1NiwiZXhwIjoxNjUxNjc4MTU2fQ.d--whgbti2wR3OcxNcS6lz0XxY6k8v8Z2wOWgNgMwHs
+
+{
+    "firstName": "Min",
+    "lastName": "Jeong",
+    "email": "admin2@gmail.com",
+    "password": "admin"
+}
+
+
+### login
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{    
+    "email": "admin@gmail.com",
+    "password": "admin"
+}

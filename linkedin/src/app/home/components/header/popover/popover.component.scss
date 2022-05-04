@@ -1,12 +1,24 @@
 .item-divider {
-    border-bottom: 1px solid var(--ion-color-light-tint);
+  border-bottom: 1px solid var(--ion-color-light-tint);
 }
 
 ion-card-content p:hover {
-    text-decoration: underline;
-    cursor: pointer;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 ion-popover {
-    --width: 320px;
+  --width: 320px;
+}
+
+ion-card {
+  box-shadow: none;
+
+  ion-card-header {
+    padding: 16px 0;
+
+    ion-grid {
+      margin-bottom: 18px;
+    }
+  }
 }

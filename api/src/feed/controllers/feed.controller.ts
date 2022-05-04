@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Request, UseGuards } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { JwtGuard } from '../../auth/guards/jwt.guard';
 import { FeedService } from '../services/feed.service';
 import { FeedPost } from './../models/post.interface';
 
@@ -10,13 +11,20 @@ export class FeedController {
     constructor(private feedService: FeedService) { }
 
     @Post()
-    create(@Body() feedPost: FeedPost): Observable<FeedPost> {
-        return this.feedService.createPost(feedPost);
+    @UseGuards(JwtGuard)
+    create(@Body() feedPost: FeedPost, @Request() req): Observable<FeedPost> {
+        return this.feedService.createPost(req.user, feedPost);
     }
 
+    // @Get()
+    // findAll(): Observable<FeedPost[]> {
+    //     return this.feedService.findAllPosts();
+    // }
+
     @Get()
-    findAll(): Observable<FeedPost[]> {
-        return this.feedService.findAllPosts();
+    findSelected(@Query('take') take: number = 1, @Query('skip') skip: number = 1,): Observable<FeedPost[]> {
+        take = take > 20 ? 20 : take;
+        return this.feedService.findSelectedPost(take, skip);
     }
 
     @Patch(':id')
