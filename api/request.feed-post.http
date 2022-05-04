@@ -1,0 +1,24 @@
+### create feed post
+POST http://localhost:3000/api/feed
+Content-Type: application/json
+
+{
+    "body": "first body"
+}
+
+
+### get all posts
+GET http://localhost:3000/api/feed
+
+
+### update feed post
+PATCH  http://localhost:3000/api/feed/1
+Content-Type: application/json
+
+{
+    "body": "updated first body"
+}
+
+
+### delete feedpost
+DELETE http://localhost:3000/api/feed/1
