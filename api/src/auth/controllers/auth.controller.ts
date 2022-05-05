@@ -16,6 +16,7 @@ export class AuthController {
 
   @Post('login')
   login(@Body() user: User): Observable<{ token: string }> {
+
     return this.authService
       .login(user)
       .pipe(map((token: string) => ({ token })));

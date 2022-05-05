@@ -1,7 +1,7 @@
 ### create feed post
 POST http://localhost:3000/api/feed
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJmaXJzdE5hbWUiOiJKb2huIiwibGFzdE5hbWUiOiJEb2UiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIn0sImlhdCI6MTY1MTY3NDk3MiwiZXhwIjoxNjUxNjc4NTcyfQ._0TJHz1X-cwOuJFVJnoWQPBIUxOz49kE-kClpY1bcgI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJmaXJzdE5hbWUiOiJKb2huIiwibGFzdE5hbWUiOiJEb2UiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIn0sImlhdCI6MTY1MTcxNDcxOCwiZXhwIjoxNjUxNzE4MzE4fQ.f_GYd-67LR7Rh-rhZJAvX9JEJuqvcXfxjJjnwzFyges
 
 {
     "body": "Sixth body"
@@ -13,11 +13,12 @@ GET http://localhost:3000/api/feed?take=2&skip=0
 
 
 ### update feed post
-PATCH  http://localhost:3000/api/feed/1
+PATCH  http://localhost:3000/api/feed/8
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJmaXJzdE5hbWUiOiJKb2huIiwibGFzdE5hbWUiOiJEb2UiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIn0sImlhdCI6MTY1MTcyNTEzOSwiZXhwIjoxNjUxNzI4NzM5fQ.dSjcOM3H3Ttr7eYu_Jsn9g5ry6eKcpQ_M5JXapqM0UY
 
 {
-    "body": "updated first body"
+    "body": "updated Sixth body"
 }
 
 

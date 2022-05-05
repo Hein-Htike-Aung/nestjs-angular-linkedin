@@ -31,6 +31,7 @@ export class AuthService {
             lastName,
             email,
             password: hashPassword,
+            role: user.role,
           }),
         ).pipe(
           map((user: User) => {
@@ -72,4 +73,5 @@ export class AuthService {
       }),
     );
   }
+
 }

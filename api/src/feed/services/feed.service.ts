@@ -22,6 +22,12 @@ export class FeedService {
     return from(this.feedPostRepository.find());
   }
 
+  findPostById(id: number): Observable<FeedPost> {
+    return from(
+      this.feedPostRepository.findOne({ where: { id }, relations: ['author'] }),
+    );
+  }
+
   findSelectedPost(
     take: number = 10,
     skip: number = 0,
