@@ -1,3 +1,4 @@
+import { TabsComponent } from './components/tabs/tabs.component';
 import { PopoverComponent } from './components/header/popover/popover.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NgModule } from '@angular/core';
@@ -22,6 +23,6 @@ import { AllPostsComponent } from './components/all-posts/all-posts.component';
     HomePageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [HomePage, HeaderComponent, PopoverComponent, ProfileSummaryComponent, StartPostComponent, AdvertisingComponent, ModalComponent, AllPostsComponent]
+  declarations: [HomePage, HeaderComponent, PopoverComponent, ProfileSummaryComponent, StartPostComponent, AdvertisingComponent, ModalComponent, AllPostsComponent, TabsComponent]
 })
 export class HomePageModule { }

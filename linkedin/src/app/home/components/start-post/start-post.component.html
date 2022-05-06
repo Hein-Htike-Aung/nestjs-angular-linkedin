@@ -3,12 +3,17 @@
     <ion-avatar>
       <ion-img src="../../../../assets/profile-pic.jpg"></ion-img>
     </ion-avatar>
-    <ion-button (click)="presentModel()" shape="round" fill="outline" color="medium">
+    <ion-button
+      (click)="presentModel()"
+      shape="round"
+      fill="outline"
+      color="medium"
+    >
       <span class="ion-text-left"> Start a post </span>
     </ion-button>
   </ion-card-header>
 
-  <ion-card-content>
+  <ion-card-content class="ion-hide-sm-down">
     <ion-button color="medium" fill="clear">
       <ion-icon color="secondary" name="image-outline"> </ion-icon>
       <ion-text>Photo</ion-text>

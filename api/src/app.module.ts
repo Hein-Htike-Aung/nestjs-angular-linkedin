@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { FeedModule } from './feed/feed.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_FILTER } from '@nestjs/core';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { APP_FILTER } from '@nestjs/core';
     }),
     FeedModule,
     AuthModule,
+    ChatModule,
   ],
   providers: [{ provide: APP_FILTER, useClass: AllExceptionFilter }],
 })
