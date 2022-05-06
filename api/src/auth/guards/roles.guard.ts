@@ -1,4 +1,4 @@
-import { User } from './../models/user.interface';
+import { User } from '../models/user.class';
 import { AuthService } from './../services/auth.service';
 import { ROLES_KEY } from './../decorators/roles.decorator';
 import { Role } from './../models/role.enum';

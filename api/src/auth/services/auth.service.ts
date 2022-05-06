@@ -1,10 +1,10 @@
 import { UserEntity } from './../models/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { from, map, Observable, switchMap } from 'rxjs';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import * as bcrypt from 'bcrypt';
-import { User } from '../models/user.interface';
+import { User } from '../models/user.class';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 
@@ -62,6 +62,15 @@ export class AuthService {
       }),
     ).pipe(
       switchMap((user: User) => {
+        if (!user) {
+          // throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+
+          throw new HttpException(
+            { status: HttpStatus.NOT_FOUND, error: 'Invalid Credentail' },
+            HttpStatus.NOT_FOUND,
+          );
+        }
+
         return from(bcrypt.compare(password, user.password)).pipe(
           map((isValildPassword: boolean) => {
             if (isValildPassword) {
@@ -73,5 +82,4 @@ export class AuthService {
       }),
     );
   }
-
 }

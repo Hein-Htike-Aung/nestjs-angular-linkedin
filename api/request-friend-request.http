@@ -1,0 +1,22 @@
+### friend Request 
+POST http://localhost:3000/api/user/friend-request/send/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJmaXJzdE5hbWUiOiJKb2huIiwibGFzdE5hbWUiOiJEb2UiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIn0sImlhdCI6MTY1MTc2MDk2MywiZXhwIjoxNjUxNzY0NTYzfQ.RgiLODv4X0oyIiUoCyBNQH6D7UP7YBFeOJsdcLHdl50
+
+### friend Request Status
+GET http://localhost:3000/api/user/friend-request/status/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJmaXJzdE5hbWUiOiJKb2huIiwibGFzdE5hbWUiOiJEb2UiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIn0sImlhdCI6MTY1MTgwMTI0NywiZXhwIjoxNjUxODA0ODQ3fQ.60155LwGcO7z2xj6cBHeWvcyfvHFsC_A-qtmyqc5DbY
+
+
+### Resposne To FriendRequest
+PATCH http://localhost:3000/api/user/friend-request/response/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJmaXJzdE5hbWUiOiJKb2huIiwibGFzdE5hbWUiOiJEb2UiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIn0sImlhdCI6MTY1MTgwNjM1NCwiZXhwIjoxNjUxODA5OTU0fQ.PKAYt0dYDWfA0gbWIbDdHXX65eBt-o0nd5PAjmZC_f0
+
+{
+    "status": "accepted"
+}
+
+
+### 
+GET http://localhost:3000/api/user/friend-request/me/received-requests
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJmaXJzdE5hbWUiOiJNaW4iLCJsYXN0TmFtZSI6Ikplb25nIiwiZW1haWwiOiJhZG1pbjJAZ21haWwuY29tIiwicm9sZSI6IlVTRVIifSwiaWF0IjoxNjUxODA3MTcxLCJleHAiOjE2NTE4MTA3NzF9.iPE_JfpPHywSjKSL3TjKUC9a67HBFeqaFzznEnjw5Dw

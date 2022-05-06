@@ -1,3 +1,4 @@
+import { FriendRequestEntity } from './models/friend-request.entity';
 import { RolesGuard } from './guards/roles.guard';
 import { JwtStrategy } from './guards/jwt.strategy';
 import { UserEntity } from './models/user.entity';
@@ -20,7 +21,7 @@ import { UserController } from './controllers/user.controller';
         },
       }),
     }),
-    TypeOrmModule.forFeature([UserEntity]),
+    TypeOrmModule.forFeature([UserEntity, FriendRequestEntity]),
   ],
   providers: [AuthService, JwtGuard, JwtStrategy, RolesGuard, UserService],
   controllers: [AuthController, UserController],

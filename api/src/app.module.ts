@@ -1,8 +1,10 @@
+import { AllExceptionFilter } from './core/all-exception.filter';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FeedModule } from './feed/feed.module';
 import { AuthModule } from './auth/auth.module';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -18,7 +20,8 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true,
     }),
     FeedModule,
-    AuthModule
+    AuthModule,
   ],
+  providers: [{ provide: APP_FILTER, useClass: AllExceptionFilter }],
 })
-export class AppModule { }
+export class AppModule {}

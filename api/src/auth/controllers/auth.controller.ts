@@ -1,6 +1,6 @@
 import { map, Observable, switchMap } from 'rxjs';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { User } from '../models/user.interface';
+import { User } from '../models/user.class';
 import { AuthService } from '../services/auth.service';
 import { JwtGuard } from '../guards/jwt.guard';
 

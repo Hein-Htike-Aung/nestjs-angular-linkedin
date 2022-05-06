@@ -1,6 +1,6 @@
 import { UserService } from './../../auth/services/user.service';
 import { FeedPost } from './../models/post.interface';
-import { User } from './../../auth/models/user.interface';
+import { User } from '../../auth/models/user.class';
 import { FeedService } from './../services/feed.service';
 import { AuthService } from './../../auth/services/auth.service';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';

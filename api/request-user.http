@@ -17,10 +17,14 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {    
-    "email": "admin@gmail.com",
+    "email": "admin2@gmail.com",
     "password": "admin"
 }
 
+
+### find by id
+GET  http://localhost:3000/api/user/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJmaXJzdE5hbWUiOiJNaW4iLCJsYXN0TmFtZSI6Ikplb25nIiwiZW1haWwiOiJhZG1pbjJAZ21haWwuY29tIiwicm9sZSI6IlVTRVIifSwiaWF0IjoxNjUxODE2ODc4LCJleHAiOjE2NTE4MjA0Nzh9.DC6qFqfomECP6p04c_33b8Iqkqsw6DCoGqzPdrKYPgM
 
 ### Get image
 GET http://localhost:3000/api/user/image
