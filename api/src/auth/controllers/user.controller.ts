@@ -43,8 +43,6 @@ export class UserController {
     const imagesFolderPath = join(process.cwd(), `images`);
     const fullImagePath = join(imagesFolderPath + '/', file.filename);
 
-    console.log(fullImagePath);
-
     return isFileExtensionSafe(fullImagePath).pipe(
       switchMap((isFileLegit: boolean) => {
         if (isFileLegit) {
@@ -59,6 +57,7 @@ export class UserController {
     );
   }
 
+  // Logged In User's Actual Image
   @UseGuards(JwtGuard)
   @Get('image')
   findImage(@Request() req, @Res() res): Observable<Object> {
@@ -67,6 +66,19 @@ export class UserController {
     return this.userService.findImageNameUserId(userId).pipe(
       switchMap((imageName: string) => {
         return of(res.sendFile(imageName, { root: './images' }));
+      }),
+    );
+  }
+
+  // Logged In User's Image Name
+  @UseGuards(JwtGuard)
+  @Get('image-name')
+  findUserImageName(@Request() req): Observable<{ imageName: string }> {
+    const userId = req.user.id;
+    
+    return this.userService.findImageNameUserId(userId).pipe(
+      switchMap((imageName: string) => {
+        return of({ imageName });
       }),
     );
   }

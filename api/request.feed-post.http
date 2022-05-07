@@ -9,7 +9,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyL
 
 
 ### get all selected post
-GET http://localhost:3000/api/feed?take=2&skip=0
+GET http://localhost:3000/api/feed?take=10&skip=0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJmaXJzdE5hbWUiOiJNaW4iLCJsYXN0TmFtZSI6Ikplb25nIiwiZW1haWwiOiJhZG1pbjJAZ21haWwuY29tIiwicm9sZSI6IlVTRVIifSwiaWF0IjoxNjUxOTE0MTg5LCJleHAiOjE2NTE5MTc3ODl9.SpnALzaPy7zjGqRSyY4s-BaAZ4rqXPGe4k8i_LofN0o
 
 
 ### update feed post
@@ -24,3 +25,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyL
 
 ### delete feedpost
 DELETE http://localhost:3000/api/feed/1
+
+
+###
+GET http://localhost:3000/api/feed/image/e7fa77c1-62b5-4ca7-98eb-42186d874144.png
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJmaXJzdE5hbWUiOiJNaW4iLCJsYXN0TmFtZSI6Ikplb25nIiwiZW1haWwiOiJhZG1pbjJAZ21haWwuY29tIiwicm9sZSI6IlVTRVIifSwiaWF0IjoxNjUxOTI4OTExLCJleHAiOjE2NTE5MzI1MTF9.TxyLYL03iy011T2e1qKVUJqE16pUIot4M-9d0E9fEN4

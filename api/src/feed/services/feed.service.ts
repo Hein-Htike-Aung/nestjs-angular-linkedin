@@ -18,24 +18,39 @@ export class FeedService {
     return from(this.feedPostRepository.save(feedPost));
   }
 
-  findAllPosts(): Observable<FeedPost[]> {
-    return from(this.feedPostRepository.find());
-  }
-
   findPostById(id: number): Observable<FeedPost> {
     return from(
       this.feedPostRepository.findOne({ where: { id }, relations: ['author'] }),
     );
   }
 
-  findSelectedPost(
-    take: number = 10,
-    skip: number = 0,
-  ): Observable<FeedPost[]> {
+
+  // findAllPosts(): Observable<FeedPost[]> {
+  //   return from(this.feedPostRepository.find());
+  // }
+
+  // findSelectedPost(
+  //   take: number = 10,
+  //   skip: number = 0,
+  // ): Observable<FeedPost[]> {
+  //   return from(
+  //     this.feedPostRepository
+  //       .findAndCount({ take, skip, relations: ['author'] })
+  //       .then(([posts]) => {
+  //         return <FeedPost[]>posts;
+  //       }),
+  //   );
+  // }
+
+  findPosts(take: number = 10, skip: number = 0): Observable<FeedPost[]> {
     return from(
-      this.feedPostRepository.findAndCount({ take, skip }).then(([posts]) => {
-        return <FeedPost[]>posts;
-      }),
+      this.feedPostRepository
+        .createQueryBuilder('post')
+        .innerJoinAndSelect('post.author', 'author')
+        .orderBy('post.createdAt', 'DESC')
+        .take(take)
+        .skip(skip)
+        .getMany(),
     );
   }
 

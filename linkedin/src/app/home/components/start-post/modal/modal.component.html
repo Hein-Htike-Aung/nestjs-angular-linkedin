@@ -1,7 +1,13 @@
 <div>
   <div class="heading ion-padding">
-    <ion-text>Create a post</ion-text>
-    <ion-button (click)="onDismiss()" size="small" color="dark" fill="clear" shape="round">
+    <ion-text>{{ postId ? "Edit" : "Create" }} a post</ion-text>
+    <ion-button
+      (click)="onDismiss()"
+      size="small"
+      color="dark"
+      fill="clear"
+      shape="round"
+    >
       <ion-icon slot="icon-only" size="large" name="close-outline"></ion-icon>
     </ion-button>
   </div>
@@ -34,7 +40,7 @@
       placeholder="What do you want to talk about?"
       type="text"
       formControlName="body"
-      required    
+      required
     >
     </ion-textarea>
     <ion-button fill="clear">Add hashtag</ion-button>
@@ -78,8 +84,11 @@
         </ion-button>
       </div>
 
-      <ion-button [disabled]="postForm.invalid" class="ion-margin" type="submit"
-        >Post</ion-button
+      <ion-button
+        [disabled]="postForm.invalid"
+        class="ion-margin"
+        type="submit"
+        >{{ postId ? "Edit" : "Post" }}</ion-button
       >
     </div>
   </form>

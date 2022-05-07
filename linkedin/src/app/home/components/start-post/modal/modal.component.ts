@@ -1,22 +1,27 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit {
-
   postForm: FormGroup;
 
-  constructor(public modalController: ModalController, private builder: FormBuilder) { }
+  // Edit
+  @Input() postId?: number;
+
+  constructor(
+    public modalController: ModalController,
+    private builder: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.postForm = this.builder.group({
-      body: ['', Validators.required]
-    })
+      body: ['', Validators.required],
+    });
   }
 
   onPost() {
@@ -28,11 +33,10 @@ export class ModalComponent implements OnInit {
         post: {
           body,
           createdAt: new Date(),
-
-        }
+        },
       },
       'post'
-    )
+    );
   }
 
   onDismiss() {

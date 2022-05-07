@@ -8,7 +8,7 @@ import { JwtGuard } from '../guards/jwt.guard';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   @Post('register')
   register(@Body() user: User): Observable<User> {
     return this.authService.registerAccount(user);

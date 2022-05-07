@@ -1,3 +1,6 @@
+import { Router } from '@angular/router';
+import { NewUser } from './models/newUser.model';
+import { AuthService } from './services/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
@@ -11,7 +14,7 @@ export class AuthPage implements OnInit {
 
   submissionType: 'login' | 'join' = 'login';
 
-  constructor() {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {}
 
@@ -22,10 +25,20 @@ export class AuthPage implements OnInit {
     if (!email || !password) return;
 
     if (this.submissionType === 'login') {
-      console.log(1, 'handle login', email, password);
+      this.authService.login(email, password).subscribe({
+        next: () => {
+          this.router.navigateByUrl('/home');
+        },
+      });
     } else if (this.submissionType === 'join') {
       const { firstName, lastName } = this.form.value;
-      console.log(2, 'handle join', firstName, lastName, email, password);
+      if (!firstName || !lastName) return;
+
+      const newUser: NewUser = { firstName, lastName, email, password };
+
+      this.authService.register(newUser).subscribe(() => {
+        this.toogleText();
+      });
     }
   }
 
