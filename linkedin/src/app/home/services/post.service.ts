@@ -1,9 +1,10 @@
+import { AuthService } from './../../auth/services/auth.service';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Post } from '../models/Post';
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 
 const API_URL = `${environment.apiUrl}/feed`;
 
@@ -17,7 +18,23 @@ export class PostService {
     }),
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {
+    /* 
+      The reason why initializing user profile image is becuase, post service is injected in home.page.ts file
+    */
+    this.authService
+      .getLoggedInUserImageName()
+      .pipe(
+        take(1),
+        tap(({ imageName }) => {
+          const defaultImagePath = 'default-image.png';
+          this.authService
+            .updateUserImagePath(imageName || defaultImagePath)
+            .subscribe();
+        })
+      )
+      .subscribe();
+  }
 
   getSelectedPosts(params) {
     return this.http.get<Post[]>(`${API_URL}${params}`);

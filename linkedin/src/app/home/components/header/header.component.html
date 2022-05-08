@@ -42,7 +42,7 @@
           </ion-col>
           <ion-col (click)="presentPopover($event)" size="auto">
             <ion-avatar>
-              <ion-img src="../../../../assets//profile-pic.jpg"></ion-img>
+              <ion-img [src]="userFullImagePath"></ion-img>
             </ion-avatar>
             <div class="me">Me
               <ion-icon style="font-size:16px" name="caret-down-outline"></ion-icon>

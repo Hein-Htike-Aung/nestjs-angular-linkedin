@@ -35,7 +35,7 @@ export class UserController {
   updateImage(
     @UploadedFile() file: Express.Multer.File,
     @Request() req,
-  ): Observable<UpdateResult | { error: string }> {
+  ): Observable<{ modifiedFileName: string } | { error: string }> {
     const fileName = file?.filename;
 
     if (!fileName) return of({ error: 'File must be a png, jpg/jpeg' });
@@ -48,7 +48,11 @@ export class UserController {
         if (isFileLegit) {
           const userId = req.user.id;
 
-          return this.userService.updateUserImageById(userId, fileName);
+          return this.userService.updateUserImageById(userId, fileName).pipe(
+            map(() => ({
+              modifiedFileName: file.filename,
+            })),
+          );
         }
         // invalid file
         removeFile(fullImagePath);
@@ -75,7 +79,7 @@ export class UserController {
   @Get('image-name')
   findUserImageName(@Request() req): Observable<{ imageName: string }> {
     const userId = req.user.id;
-    
+
     return this.userService.findImageNameUserId(userId).pipe(
       switchMap((imageName: string) => {
         return of({ imageName });

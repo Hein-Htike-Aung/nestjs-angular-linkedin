@@ -102,7 +102,10 @@ export class AuthService {
     formData: FormData
   ): Observable<{ modifiedFileName: string }> {
     return this.http
-      .post<{ modifiedFileName: string }>(`${API_URL}/upload`, formData)
+      .post<{ modifiedFileName: string }>(
+        `${environment.apiUrl}/user/upload`,
+        formData
+      )
       .pipe(
         tap(({ modifiedFileName }) => {
           // Change User Behaviour Subject
@@ -114,11 +117,11 @@ export class AuthService {
   }
 
   getDefualtImagePath(): string {
-    return `${API_URL}/feed/image/default-image.png`;
+    return `${environment.apiUrl}/feed/image/default-image.png`;
   }
 
   getImagePath(imageName: string): string {
-    return `${API_URL}/feed/image/${imageName}`;
+    return `${environment.apiUrl}/feed/image/${imageName}`;
   }
 
   getLoggedInUserActualImage() {
@@ -127,7 +130,7 @@ export class AuthService {
 
   getLoggedInUserImageName(): Observable<{ imageName: string }> {
     return this.http
-      .get<{ imageName: string }>(`${API_URL}/image-name`)
+      .get<{ imageName: string }>(`${environment.apiUrl}/user/image-name`)
       .pipe(take(1));
   }
 

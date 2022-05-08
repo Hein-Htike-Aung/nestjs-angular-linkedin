@@ -1,3 +1,4 @@
+import { PostService } from './../home/services/post.service';
 import { Router } from '@angular/router';
 import { NewUser } from './models/newUser.model';
 import { AuthService } from './services/auth.service';

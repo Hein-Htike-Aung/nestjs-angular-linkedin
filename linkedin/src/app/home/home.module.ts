@@ -1,3 +1,4 @@
+import { ConnectionProfileComponent } from './components/connection-profile/connection-profile.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { PopoverComponent } from './components/header/popover/popover.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -14,15 +15,25 @@ import { AdvertisingComponent } from './components/advertising/advertising.compo
 import { ModalComponent } from './components/start-post/modal/modal.component';
 import { AllPostsComponent } from './components/all-posts/all-posts.component';
 
-
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  declarations: [HomePage, HeaderComponent, PopoverComponent, ProfileSummaryComponent, StartPostComponent, AdvertisingComponent, ModalComponent, AllPostsComponent, TabsComponent]
+  declarations: [
+    HomePage,
+    HeaderComponent,
+    PopoverComponent,
+    ProfileSummaryComponent,
+    StartPostComponent,
+    AdvertisingComponent,
+    ModalComponent,
+    AllPostsComponent,
+    TabsComponent,
+    ConnectionProfileComponent,
+  ],
 })
-export class HomePageModule { }
+export class HomePageModule {}
