@@ -7,11 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  body = '';
 
-  constructor(private postService: PostService) {}
 
-  onCreate(postBody: string) {
-    this.body = postBody;
-  }
+
 }

@@ -1,12 +1,13 @@
+import { ErrorHandlerService } from './../../core/error.handler.service';
 import { UserResponse } from './../models/userResponse.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, from, Observable, of } from 'rxjs';
+import { BehaviorSubject, from, Observable, of, throwError } from 'rxjs';
 import { NewUser } from './../models/newUser.model';
 import { Injectable } from '@angular/core';
 import { Role, User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap, catchError } from 'rxjs/operators';
 import { Storage } from '@capacitor/storage';
 
 import jwt_decode from 'jwt-decode';
@@ -25,7 +26,11 @@ export class AuthService {
     }),
   };
 
-  constructor(private http: HttpClient, private rounter: Router) {}
+  constructor(
+    private http: HttpClient,
+    private rounter: Router,
+    private errorHandlerService: ErrorHandlerService
+  ) {}
 
   register(newUser: NewUser): Observable<User> {
     return this.http
@@ -33,7 +38,8 @@ export class AuthService {
       .pipe(take(1));
   }
 
-  login(email: string, password: string): Observable<{ token: string }> {
+  login(email: string, password: string): Observable<{ token: string }> {  
+
     return this.http
       .post<{ token: string }>(
         `${API_URL}/login`,
@@ -51,7 +57,13 @@ export class AuthService {
           const decodedToken: UserResponse = jwt_decode(response.token);
 
           this.user$.next(decodedToken.user);
-        })
+        }),
+        catchError((err) => {
+          throw new Error(err.error.message);
+        }),
+        catchError(
+          this.errorHandlerService.handleError<any>('login')
+        )
       );
   }
 

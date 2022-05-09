@@ -9,6 +9,10 @@ import { FriendRequest, FriendRequestStatus } from './../models/FriendRequest';
   providedIn: 'root',
 })
 export class ConnectionProfileService {
+
+  // use in header components & friend request popover component
+  friendRequests: FriendRequest[];
+
   private httpOptions: { headers: HttpHeaders } = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -31,10 +35,29 @@ export class ConnectionProfileService {
     );
   }
 
-  sendFriendRequest(recieverId: number): Observable<FriendRequest> {
+  sendFriendRequest(
+    recieverId: number
+  ): Observable<FriendRequest> {
     return this.http.post<FriendRequest>(
       `${environment.apiUrl}/user/friend-request/send/${recieverId}`,
       {}
+    );
+  }
+
+  getFriendRequests(): Observable<FriendRequest[]> {
+    return this.http.get<FriendRequest[]>(
+      `${environment.apiUrl}/user/friend-request/me/received-requests`
+    );
+  }
+
+  respondToFriendRequest(
+    id: number,
+    statusResponse: 'accepted' | 'declined'
+  ): Observable<FriendRequest> {
+    return this.http.patch<FriendRequest>(
+      `${environment.apiUrl}/user/friend-request/response/${id}`,
+      { status: statusResponse },
+      this.httpOptions
     );
   }
 }

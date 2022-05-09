@@ -1,14 +1,12 @@
-import { map, switchMap, tap, take } from 'rxjs/operators';
-import { Observable, Subscription } from 'rxjs';
-import { ConnectionProfileService } from './../../services/connection-profile.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FriendRequest_Status_Type } from './../../models/FriendRequest';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, UrlSegment } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
+import { User } from 'src/app/auth/models/user.model';
+import { FriendRequestStatus } from '../../models/FriendRequest';
 import { BannerColorService } from '../../services/banner-color.service';
-import { User } from '../../../auth/models/user.model';
-import {
-  FriendRequestStatus,
-  FriendRequest_Status_Type,
-} from '../../models/FriendRequest';
+import { ConnectionProfileService } from '../../services/connection-profile.service';
 
 @Component({
   selector: 'app-connection-profile',
@@ -18,25 +16,23 @@ import {
 export class ConnectionProfileComponent implements OnInit, OnDestroy {
   user: User;
   friendRequestStatus: FriendRequest_Status_Type;
-  friendRequestStatusSub$: Subscription;
-  userSub$: Subscription;
+  friendRequestStatusSubscription$: Subscription;
+  userSubscription$: Subscription;
 
   constructor(
-    private connectionProfileService: ConnectionProfileService,
     public bannerColorService: BannerColorService,
-    private activatedRoute: ActivatedRoute
+    private route: ActivatedRoute,
+    public connectionProfileService: ConnectionProfileService
   ) {}
 
   ngOnInit() {
-    this.friendRequestStatusSub$ = this.getFriendRequestStatus()
+    this.friendRequestStatusSubscription$ = this.getFriendRequestStatus()
       .pipe(
         tap((friendRequestStatus: FriendRequestStatus) => {
           this.friendRequestStatus = friendRequestStatus.status;
-
-          this.userSub$ = this.getUser().subscribe((user: User) => {
+          this.userSubscription$ = this.getUser().subscribe((user: User) => {
             this.user = user;
             const imgPath = user.imagePath ?? 'default-image.png';
-
             this.user['fullImagePath'] =
               'http://localhost:3000/api/feed/image/' + imgPath;
           });
@@ -45,31 +41,24 @@ export class ConnectionProfileComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  ngOnDestroy(): void {
-    this.friendRequestStatusSub$.unsubscribe();
-    this.userSub$.unsubscribe();
+  getUser(): Observable<User> {
+    return this.getUserIdFromUrl().pipe(
+      switchMap((userId: number) => {
+        return this.connectionProfileService.getConnectionUser(userId);
+      })
+    );
   }
 
-  addUser() {
-    // Change Friend Request Status
+  addUser(): Subscription {
     this.friendRequestStatus = 'pending';
-
-    this.getUserIdFromUrl()
+    return this.getUserIdFromUrl()
       .pipe(
         switchMap((userId: number) => {
           return this.connectionProfileService.sendFriendRequest(userId);
-        }),
-        take(1)
+        })
       )
+      .pipe(take(1))
       .subscribe();
-  }
-
-  getUser(): Observable<User> {
-    return this.getUserIdFromUrl().pipe(
-      switchMap((id: number) => {
-        return this.connectionProfileService.getConnectionUser(id);
-      })
-    );
   }
 
   getFriendRequestStatus(): Observable<FriendRequestStatus> {
@@ -80,8 +69,13 @@ export class ConnectionProfileComponent implements OnInit, OnDestroy {
     );
   }
 
+  ngOnDestroy(): void {
+    this.userSubscription$.unsubscribe();
+    this.friendRequestStatusSubscription$.unsubscribe();
+  }
+
   private getUserIdFromUrl(): Observable<number> {
-    return this.activatedRoute.url.pipe(
+    return this.route.url.pipe(
       map((urlSegment: UrlSegment[]) => {
         return +urlSegment[0].path;
       })

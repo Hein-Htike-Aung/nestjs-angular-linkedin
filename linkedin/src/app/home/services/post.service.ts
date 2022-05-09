@@ -1,10 +1,11 @@
+import { ErrorHandlerService } from './../../core/error.handler.service';
 import { AuthService } from './../../auth/services/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Post } from '../models/Post';
-import { take, tap } from 'rxjs/operators';
+import { take, tap, catchError } from 'rxjs/operators';
 
 const API_URL = `${environment.apiUrl}/feed`;
 
@@ -18,10 +19,11 @@ export class PostService {
     }),
   };
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    /* 
-      The reason why initializing user profile image is becuase, post service is injected in home.page.ts file
-    */
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private errorHandlerService: ErrorHandlerService
+  ) {
     this.authService
       .getLoggedInUserImageName()
       .pipe(
@@ -37,7 +39,14 @@ export class PostService {
   }
 
   getSelectedPosts(params) {
-    return this.http.get<Post[]>(`${API_URL}${params}`);
+    return this.http.get<Post[]>(`${API_URL}${params}`).pipe(
+      tap((posts: Post[]) => {
+        if (posts.length == 0) throw new Error('No posts to display');
+      }),
+      catchError(
+        this.errorHandlerService.handleError<Post[]>('getSelectedPosts', [])
+      )
+    );
   }
 
   createPost(body: string): Observable<Post> {

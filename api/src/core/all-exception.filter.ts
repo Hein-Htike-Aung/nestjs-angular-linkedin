@@ -27,7 +27,7 @@ export class AllExceptionFilter implements ExceptionFilter {
       const errorResponse = exception.getResponse();
 
       errorMessage =
-        (errorResponse as HttpExceptionResponse).error || exception.message;
+        (errorResponse as HttpExceptionResponse).message || exception.message;
     } else {
       (status = HttpStatus.INTERNAL_SERVER_ERROR),
         (errorMessage = 'Critical internal server error occurred!');
@@ -48,7 +48,7 @@ export class AllExceptionFilter implements ExceptionFilter {
     request: Request,
   ): CustomHttpExceptionResponse => ({
     statusCode: status,
-    error: errorMessage,
+    message: errorMessage,
     path: request.url,
     method: request.method,
     timeStamp: new Date(),
@@ -59,12 +59,12 @@ export class AllExceptionFilter implements ExceptionFilter {
     request: Request,
     exception: unknown,
   ): string => {
-    const { statusCode, error } = errorResponse;
+    const { statusCode, message } = errorResponse;
     const { method, url } = request;
     const errorLog = `Response Code: ${statusCode} - Method: ${method} - URL: ${url}\n\n
     ${JSON.stringify(errorResponse)}
     User: ${JSON.stringify(request.user ?? 'Not Signed in')}\n\n${
-      exception instanceof HttpException ? exception.stack : error
+      exception instanceof HttpException ? exception.stack : message
     }\n\n`;
 
     return errorLog;

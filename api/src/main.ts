@@ -15,7 +15,10 @@ async function bootstrap() {
   app.enableCors();
   app.setGlobalPrefix('api');
   app.useGlobalPipes(
-    new ValidationPipe(),
+    new ValidationPipe({
+      whitelist: true,
+      forbidUnknownValues: true,
+    }),
   );
   app.use(morgan('tiny', { stream: logStream }));
   await app.listen(3000);

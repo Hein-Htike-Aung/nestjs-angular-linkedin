@@ -98,31 +98,37 @@ export class UserService {
   getFriendRequestStatus(
     receiverId: number,
     currentUser: User,
-  ): Observable<{ status: string }> {
+  ): Observable<FriendRequestStatus> {
     return this.findUserById(receiverId).pipe(
       switchMap((receiver: User) => {
         return from(
           this.friendRequestRepository.findOne({
             where: [
-              { creator: currentUser, receiver: receiver },
-              { creator: receiver, receiver: currentUser },
+              {
+                receiver: { id: receiver.id },
+                creator: { id: currentUser.id },
+              },
+              {
+                creator: { id: receiver.id },
+                receiver: { id: currentUser.id },
+              },
             ],
             relations: ['creator', 'receiver'],
           }),
+        ).pipe(
+          switchMap((friendRequest: any) => {
+            if (friendRequest?.receiver.id === currentUser.id) {
+              return of({
+                status:
+                  'waiting-for-current-user-response' as FriendRequest_Status_Type,
+              });
+            }
+            return of({ status: friendRequest?.status || 'not-sent' });
+          }),
         );
-      }),
-      switchMap((friendRequest: FriendRequestEntity) => {
-        if (friendRequest?.receiver.id === currentUser.id) {
-          return of({
-            status:
-              'waiting-for-current-user-response' as FriendRequest_Status_Type,
-          });
-        }
-        return of({ status: friendRequest?.status || 'not-sent' });
       }),
     );
   }
-
   getFriendRequestUserById(
     friendRequestId: number,
   ): Observable<FriendRequestEntity> {
@@ -153,6 +159,7 @@ export class UserService {
     return from(
       this.friendRequestRepository.find({
         where: { receiver: currentUser },
+        relations: ['receiver', 'creator'],
       }),
     );
   }

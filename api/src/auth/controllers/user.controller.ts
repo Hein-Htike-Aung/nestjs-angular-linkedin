@@ -109,7 +109,7 @@ export class UserController {
   getFriendRequestStatus(
     @Param('receiverId') receiverStringId: string,
     @Request() req,
-  ): Observable<{ status: string }> {
+  ): Observable<FriendRequestStatus> {
     const receiverId = parseInt(receiverStringId);
 
     return this.userService.getFriendRequestStatus(receiverId, req.user);

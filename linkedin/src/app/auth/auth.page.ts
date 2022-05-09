@@ -1,9 +1,8 @@
-import { PostService } from './../home/services/post.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NewUser } from './models/newUser.model';
 import { AuthService } from './services/auth.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-auth',

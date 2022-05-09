@@ -50,7 +50,11 @@
             )
           "
           shape="round"
-          >{{ "Connect" }}</ion-button
+          >{{
+            friendRequestStatus === "waiting-for-current-user-response"
+              ? "Accept Request"
+              : "Connect"
+          }}</ion-button
         >
       </ng-container>
       <ion-button fill="outline">
